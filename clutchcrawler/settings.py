@@ -14,7 +14,6 @@ NEWSPIDER_MODULE = "clutchcrawler.spiders"
 
 ADDONS = {}
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0"
 
@@ -39,16 +38,12 @@ DEFAULT_REQUEST_HEADERS = {
             "Accept-Language": "de,en-US;q=0.9,en;q=0.8",
             "Accept-Encoding": "gzip, deflate, br, zstd",
             "Referer": "https://clutch.co/directory/mobile-application-developers",
-            "Alt-Used": "clutch.co",
             "Connection": "keep-alive",
             "Sec-Fetch-Dest": "empty",
             "Sec-Fetch-Mode": "cors",
             "Sec-Fetch-Site": "same-origin",
             "DNT": "1",
             "Sec-GPC": "1",
-            "Priority": "u=4",
-            "TE": "trailers"
-
 }
 
 # Enable or disable spider middlewares
@@ -59,9 +54,9 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "clutchcrawler.middlewares.ClutchcrawlerDownloaderMiddleware": 543,
-#}
+# DOWNLOADER_MIDDLEWARES = {
+
+# }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html

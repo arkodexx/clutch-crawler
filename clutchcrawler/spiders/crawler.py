@@ -14,15 +14,12 @@ class CrawlerSpider(scrapy.Spider):
             "Accept-Language": "de,en-US;q=0.9,en;q=0.8",
             "Accept-Encoding": "gzip, deflate, br, zstd",
             "Referer": "https://clutch.co/directory/mobile-application-developers",
-            "Alt-Used": "clutch.co",
             "Connection": "keep-alive",
             "Sec-Fetch-Dest": "empty",
             "Sec-Fetch-Mode": "cors",
             "Sec-Fetch-Site": "same-origin",
             "DNT": "1",
-            "Sec-GPC": "1",
-            "Priority": "u=4",
-            "TE": "trailers"
+            "Sec-GPC": "1"
         }
     page = 0
     urlnum = 0
@@ -51,14 +48,16 @@ class CrawlerSpider(scrapy.Spider):
                 "hourly rate": item.xpath(".//div[contains(@class, 'hourly-rate') and contains(@class, 'sg-tooltip-v2')]/text()[2]").get(default="N/A").strip(),
                 "employees": item.xpath(".//div[contains(@class, 'employees-count')]/text()[last()]").get(default="N/A").strip(),
                 "location": item.xpath(".//div[contains(@class, 'location')]/text()[2]").get(default="N/A").replace("\n\t            ", "").replace("\n\t            \n\t            ", "").replace("\n\t        ", ""),
-                # "type": self.urls[self.urlnum].replace("?page=", "").replace("https://clutch.co/directory/", "").replace("https://clutch.co/", ""),
+                "type": self.urls[self.urlnum].replace("?page=", "").replace("https://clutch.co/directory/", "").replace("https://clutch.co/", ""),
                 "link": item.css("h3.provider__title a::attr(href)").get(default="N/A"),
             })
         self.page += 1
+        if self.page == 1:
+            self.page = 2
         if self.page == self.maximum_pages + 1:
             self.urlnum += 1
             if self.urlnum >= len(self.urls):
-                scrapy.CloseSpider(self.name)
+                raise scrapy.exceptions.CloseSpider('Reason for closing')
             self.page = 0
             self.headers["Referer"] = self.urls[self.urlnum].replace("?page=", "")
         yield self.build_request()
